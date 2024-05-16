@@ -1,14 +1,12 @@
 from database.mysql_connection import DBOperation
 
 
-class ClientsDB(DBOperation):
-
-
-    def get_client_by_sub_domain(self, client_sub_domain):
+class MessagesDB(DBOperation):
+    def get_last_message(self):
         db = self.connect_to_db()
         db_cursor = db.cursor()
         # Wrap client_sub_domain in a tuple to match the expected parameter format
-        db_cursor.execute("SELECT * FROM clients WHERE sub_domain = %s", (client_sub_domain,))
+        db_cursor.execute("select * from messages order by created_at desc limit 1")
         res = db_cursor.fetchone()[2]
         db.close()
         if res:
@@ -16,11 +14,15 @@ class ClientsDB(DBOperation):
         else:
             return None
 
-    def get_client_status(self, client_sub_domain):
+    def get_last_message_msg(self):
         db = self.connect_to_db()
         db_cursor = db.cursor()
         # Wrap client_sub_domain in a tuple to match the expected parameter format
-        db_cursor.execute("SELECT * FROM clients WHERE sub_domain = %s", (client_sub_domain,))
+        db_cursor.execute("select * from messages order by created_at desc limit 1")
         res = db_cursor.fetchone()[3]
         db.close()
-        return res
+        if res:
+            return res
+        else:
+            return None
+
