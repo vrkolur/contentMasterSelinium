@@ -14,10 +14,19 @@ xpath_dislike_first_article = "(//button[@type='button' and contains(@class, 'bt
 
 
 def login(driver, email,password):
-    client_admin_login(driver, email,password)
+    client_admin_login(driver, email, password)
 
 def like_article(driver):
     home_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, xpath_home_link)))
     home_page.click()
 
-    # like_btn =
+    like_article = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, xpath_like_first_article)))
+    like_article.click()
+
+def dislike_article(driver):
+    home_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, xpath_home_link)))
+    home_page.click()
+
+    dislike_article = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, xpath_dislike_first_article)))
+    dislike_article.click()
+

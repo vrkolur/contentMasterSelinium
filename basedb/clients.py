@@ -7,7 +7,6 @@ class ClientsDB(DBOperation):
     def get_client_by_sub_domain(self, client_sub_domain):
         db = self.connect_to_db()
         db_cursor = db.cursor()
-        # Wrap client_sub_domain in a tuple to match the expected parameter format
         db_cursor.execute("SELECT * FROM clients WHERE sub_domain = %s", (client_sub_domain,))
         res = db_cursor.fetchone()[2]
         db.close()
@@ -19,7 +18,6 @@ class ClientsDB(DBOperation):
     def get_client_status(self, client_sub_domain):
         db = self.connect_to_db()
         db_cursor = db.cursor()
-        # Wrap client_sub_domain in a tuple to match the expected parameter format
         db_cursor.execute("SELECT * FROM clients WHERE sub_domain = %s", (client_sub_domain,))
         res = db_cursor.fetchone()[3]
         db.close()
